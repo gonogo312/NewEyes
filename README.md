@@ -1,2 +1,2 @@
 # NewEyes
-Smart glasses for blind people
+#Smart glasses for blind people
