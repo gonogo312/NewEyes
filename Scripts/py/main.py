@@ -1,0 +1,217 @@
+#!/usr/bin/env python3
+#from google.oauth2 import service_account
+from book_ocr import *
+#from google.cloud import vision
+import realtime_yolo_obj_recog
+from threading import Thread
+from gpiozero import Button
+#from pygame.locals import *
+#from pygame import mixer
+#from signal import pause
+#import multiprocessing
+#from gtts import gTTS
+#import pygame.camera
+#from speech_recog import *
+import start_obj_recog
+#import process_checker
+import qr_barcode
+import start_ocr
+#import numpy as np
+import subprocess
+#import duo_google
+from crnn_ocr import *
+import argparse
+#import _thread
+import random
+import time
+import cv2
+import sys
+import io
+import os
+
+
+# Global variables
+mode = 1
+
+def synchronize_time():
+    subprocess.call(['sh', "/home/pi/run_sync.sh"])
+        
+
+    ###################################
+    # Executables and scripts
+def call_google_api_ocr():
+    start_ocr.call_google_api_ocr()
+    # subprocess.call(["python3", "/home/pi/start_ocr.py"])
+def call_obj_recog(path):
+    start_obj_recog.call_object_recognition(path)
+    # subprocess.call(["python3", "/home/pi/start_obj_recog.py"])
+def realtime_detect_objects():
+    realtime_yolo_obj_recog.realtime_yolo_object_recognition()
+#def voice_assistant():
+#    speech_recog.speech_recog()
+    # subprocess.call(["python3", "/home/pi/speech_recog.py"])
+    ###################################
+
+
+def take_picture():
+    def init_capture():
+        subprocess.call(['sh', '/home/pi/guvc_force_capture.sh'])
+
+    def stop_capture():
+        time.sleep(3)
+        subprocess.call(['sh', '/home/pi/stop_capture.sh'])
+
+    def start_process():
+        Thread(target=init_capture).start()
+        Thread(target=stop_capture).start()
+
+    def start_pressed():
+        try:
+            if os.path.exists("/home/pi/Desktop/output-1.jpg"):
+                os.remove("/home/pi/Desktop/output-1.jpg")
+
+            os.system("mpg321 first_beep.mp3 &")
+            start_process()
+            time.sleep(4.5)
+            os.system('mpg321 second_beep.mp3 &')
+
+        except Exception:
+            pass
+        finally:
+            print("Picture taken successfully!")
+
+    start_pressed()
+
+
+def increase_mode_value():
+    global mode
+    mode += 1
+    os.system("pkill mpg321")
+    os.system("pkill chromium")
+    
+    if mode == 1:
+        os.system('mpg321 /home/pi/book_ocr_read.mp3 &')
+        print("book reading mode")
+        
+    elif mode == 2:
+        os.system('mpg321 /home/pi/street_ocr_read.mp3 &')
+        print("street reading mode")
+        
+    elif mode == 3:
+        os.system("mpg321 /home/pi/obj_recog.mp3 &")
+        print("object recognition mode")
+        
+    elif mode == 4:
+        os.system("mpg321 /home/pi/continuous_obj_recog.mp3 &")
+        print("continuous object recognition mode")
+        
+    elif mode == 5:
+        os.system('mpg321 /home/pi/duo.mp3 &')
+        print("Remote duo assistant")
+        
+    elif mode == 6:
+        # Terminate all chromium processes in order to avoid possible bottleneck
+        #os.system("pkill chromium")
+        
+        os.system('mpg321 /home/pi/qr_barcode_recog.mp3 &')
+        print("QR and barcode recognition")
+        
+    elif mode == 7:
+        os.system('mpg321 /home/pi/rec_scanner.mp3 &')
+        print("Receipt scanner")
+        
+    elif mode == 8:
+        os.system('mpg321 /home/pi/money_detection.mp3 &')
+        print("Detect money")
+        
+    elif mode > 8:
+        mode = 1
+        os.system("mpg321 /home/pi/book_ocr_read.mp3 &")
+        print("loop and back to the first mode")
+
+
+def execute_action():
+    global mode
+    os.system("pkill mpg321")
+    os.system("pkill chromium")
+    
+    if mode == 1:
+        take_picture()
+        time.sleep(3)
+        
+        # Call book ocr
+        text_recognition()
+        
+        
+        # call_google_api_ocr()
+    
+    elif mode == 2:
+        take_picture()
+        time.sleep(3)
+        
+        # Call street ocr
+        street_ocr()
+    
+    elif mode == 3:
+        take_picture()
+        time.sleep(3)
+        
+        # Call object recognition
+        path = '/home/pi/Desktop/output-1.jpg'
+        call_obj_recog(path)
+
+    elif mode == 4:
+        # Call realtime object recognition
+        os.system('mpg321 ready_signal.mp3 &')
+        realtime_detect_objects()
+        
+    elif mode == 5:
+        # Call duo assistant
+        #duo_google.make_call()
+        os.system('python3 duo_google.py')
+    elif mode == 6:
+        # Call qr and barcode recognition
+        os.system('mpg321 ready_signal.mp3 &')
+        qr_barcode.start_qr_barcode_recognition()
+        
+    elif mode == 7:
+        # Call receipt scanner
+        
+        print("Receipt scanner")
+        
+    elif mode == 8:
+        # Call money recognition 
+        
+        print("Money detection mode")
+        
+if __name__ == '__main__':
+    # Time synchronization to ntp servers
+    # Necessary for using the google vision api(s)
+
+    #synchronize_time()
+
+
+    # Indicate that the device is ready
+    # Initialize the main case buttons
+
+    os.system('mpg321 startup_mode_info.mp3 &')
+
+
+    actionBtn = Button(4)
+    nextBtn = Button(2)
+    ###################################
+
+    # Start the smart voice assistant worker thread
+    #Thread(target=voice_assistant).start()
+
+    ###################################
+    while True:
+
+    # Execute the given mode's functionality and/or
+    # switch the mode to a different action
+        actionBtn.when_pressed = execute_action
+        nextBtn.when_pressed = increase_mode_value
+
+    ###################################
+
+
