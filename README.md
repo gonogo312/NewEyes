@@ -1,2 +1,1 @@
-# NewEyes
-#Smart glasses for blind people
+# NewEyes - Умни очила за незрящи хора
