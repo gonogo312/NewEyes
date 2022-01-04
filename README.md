@@ -2,7 +2,7 @@
 
 # Автор
 
-Иван Цветков - разработил проекта
+Иван Цветков - разработил проекта <br />
 	• Username: gonogo, E-mail: i.tsvetkovbg@gmail.com
 
 
