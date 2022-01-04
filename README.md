@@ -3,6 +3,6 @@
 # Автор
 
 Иван Цветков - разработил проекта <br />
-	• Username: gonogo, E-mail: i.tsvetkovbg@gmail.com
+&emsp;• Username: gonogo, E-mail: i.tsvetkovbg@gmail.com
 
 
