@@ -20,12 +20,6 @@
 
 <br/><br/>
 
-<img src="Snapshots/Examples/harry_potter.png" width="600" height="750">
-<img src="Snapshots/Examples/harry_potter_reversed.png" width="600" height="750">
-<img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
-
-<br/><br/>
-
 <img src="Snapshots/Examples/elonmusk.png" width="600" height="750">
 <img src="Snapshots/Examples/Elon-grayscale.jpg" width="600" height="750">
 <img src="Snapshots/Examples/elonmusk_result.png" width="600" height="250">
@@ -37,12 +31,23 @@
 
 <br/><br/>
 
+# Справяне с неправилната ориентация на текста
+<img src="Snapshots/Examples/harry_potter.png" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter_reversed.png" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
+
+<br/><br/>
+
+# Сканиране на касови бележки
 <img src="Snapshots/Examples/receipt_1.png" width="750" height="750">
 <img src="Snapshots/Examples/receipt_2.png" width="750" height="750">
 <img src="Snapshots/Examples/receipt_3.png" width="750" height="750">
 
 <br/><br/><br/><br/><br/><br/>
-2.) Разпознаване на обекти и тяхната позиция в пространството <br/><br/>
+# Разпознаване на обекти и тяхната позиция в пространството
+
+<br/><br/>
+
 Съответно, след цялостната обработка, разпознаването на обектите и превода на български език, през говорителите на устройството гласовият асистент изговаря съответното съобщение 
 
 <br/>
