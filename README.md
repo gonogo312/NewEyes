@@ -27,7 +27,7 @@
 <br/><br/>
 
 <img src="Snapshots/Examples/elonmusk.png" width="600" height="750">
-<img src="Snapshots/Examples/elon_grayscale.jpg" width="600" height="750">
+<img src="Snapshots/Examples/Elon-grayscale.jpg" width="600" height="750">
 <img src="Snapshots/Examples/elonmusk_result.png" width="600" height="250">
 
 <br/><br/>
