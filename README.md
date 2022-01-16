@@ -32,3 +32,7 @@
 
 <br/><br/>
 
+
+<img src="Snapshots/Examples/receipt_1.png" width="750" height="750">
+<img src="Snapshots/Examples/receipt_2.png" width="750" height="750">
+<img src="Snapshots/Examples/receipt_3.png" width="750" height="750">
