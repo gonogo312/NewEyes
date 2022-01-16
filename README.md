@@ -15,5 +15,5 @@
 
 <br/><br/>
 
-<img src="Snapshots/Examples/dark_places.png" width="400" height="300">
+<img src="Snapshots/Examples/dark_places.png" width="600" height="750">
 <img src="Snapshots/Examples/dark_places_result.png" width="600" height="250">
