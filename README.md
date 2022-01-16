@@ -32,8 +32,8 @@
 
 <br/><br/>
 
-<img src="Snapshots/Examples/the_corner_shop.png" width="600" height="750">
-<img src="Snapshots/Examples/the_corner_shop_result.png" width="600" height="250">
+<img src="Snapshots/Examples/the_corner_shop.png" width="600" height="350">
+<img src="Snapshots/Examples/the_corner_shop_result.png" width="600" height="350">
 
 <br/><br/>
 
@@ -43,7 +43,7 @@
 
 <br/><br/><br/><br/><br/><br/>
 2.) Разпознаване на обекти и тяхната позиция в пространството 
-Съответно, след цялостната обработка, разпознаването на обектите и превода на български език, през говорителите на устройството умният гласови асистент изговаря съответното съобщение 
+Съответно, след цялостната обработка, разпознаването на обектите и превода на български език, през говорителите на устройството гласовият асистент изговаря съответното съобщение 
 
 <br/>
 
