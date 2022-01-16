@@ -10,5 +10,5 @@
 1.) Четене на текст от Български и Английски език 
 (Допълнение: Ориентацията на снимките не е от значение, софтуера засича неправилната ориентация и изправя или обръща снимката)
 
-<img src="Snapshots/Examples/sign_input.png" width="500" height="500">
-<img src="Snapshots/Examples/sign_result.png" width="500" height="500">
+<img src="Snapshots/Examples/sign_input.png" width="300" height="300">
+<img src="Snapshots/Examples/sign_result.png" width="300" height="300">
