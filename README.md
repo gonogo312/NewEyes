@@ -6,4 +6,9 @@
 &emsp;• Username: gonogo, E-mail: i.tsvetkovbg@gmail.com
 
 
-<!--<img src="Snapshots/Examples/Elon-grayscale.jpg" width="300" height="300">-->
+# Примери
+1.) Четене на текст от Български и Английски език 
+(Допълнение: Ориентацията на снимките не е от значение, софтуера засича неправилната ориентация и изправя или обръща снимката)
+
+<img src="Snapshots/Examples/sign_input.png" width="500" height="500">
+<img src="Snapshots/Examples/sign_result.png" width="500" height="500">
