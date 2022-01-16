@@ -17,3 +17,18 @@
 
 <img src="Snapshots/Examples/dark_places.png" width="600" height="750">
 <img src="Snapshots/Examples/dark_places_result.png" width="600" height="250">
+
+<br/><br/>
+
+<img src="Snapshots/Examples/harry_potter.png" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter_reversed.png" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
+
+<br/><br/>
+
+<img src="Snapshots/Examples/elonmusk.png" width="600" height="750">
+<img src="Snapshots/Examples/elonmusk_grayscale.png" width="600" height="750">
+<img src="Snapshots/Examples/elonmusk_result.png" width="600" height="250">
+
+<br/><br/>
+
