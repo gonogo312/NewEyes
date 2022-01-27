@@ -33,8 +33,8 @@
 <br/><br/>
 
 # Справяне с неправилната ориентация на текста
-<img src="Snapshots/Examples/harry_potter.png" width="600" height="750">
-<img src="Snapshots/Examples/harry_potter_reversed.png" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter.jfif" width="600" height="750">
+<img src="Snapshots/Examples/harry_potter_flipped.jpg" width="600" height="750">
 <img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
 
 <br/><br/>
