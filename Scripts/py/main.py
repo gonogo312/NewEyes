@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 #from google.oauth2 import service_account
-from book_ocr import *
 #from google.cloud import vision
-import realtime_yolo_obj_recog
 from threading import Thread
 from gpiozero import Button
+import signal
 #from pygame.locals import *
 #from pygame import mixer
 #from signal import pause
@@ -14,11 +13,13 @@ from gpiozero import Button
 #from speech_recog import *
 import start_obj_recog
 #import process_checker
-import qr_barcode
 import start_ocr
 #import numpy as np
 import subprocess
 #import duo_google
+from receipt_scanner import *
+from predominant_clr import *
+from book_ocr import *
 from crnn_ocr import *
 import argparse
 #import _thread
@@ -31,7 +32,8 @@ import os
 
 
 # Global variables
-mode = 1
+mode = 0
+
 
 def synchronize_time():
     subprocess.call(['sh', "/home/pi/run_sync.sh"])
@@ -85,6 +87,8 @@ def take_picture():
 
 def increase_mode_value():
     global mode
+    
+    
     mode += 1
     os.system("pkill mpg321")
     os.system("pkill chromium")
@@ -124,7 +128,10 @@ def increase_mode_value():
         os.system('mpg321 /home/pi/money_detection.mp3 &')
         print("Detect money")
         
-    elif mode > 8:
+    elif mode == 9:
+        os.system('mpg321 /home/pi/predominant_color.mp3 &')
+        print("Predominant color detection")
+    elif mode > 9:
         mode = 1
         os.system("mpg321 /home/pi/book_ocr_read.mp3 &")
         print("loop and back to the first mode")
@@ -161,28 +168,64 @@ def execute_action():
         call_obj_recog(path)
 
     elif mode == 4:
-        # Call realtime object recognition
         os.system('mpg321 ready_signal.mp3 &')
-        realtime_detect_objects()
+        realtime = subprocess.Popen(['python3', '/home/pi/realtime_yolo_obj_recog.py'])
+        pid = realtime.pid;
+        
+        with open('/home/pi/process_pid.txt', 'w') as f:
+            f.write(str(pid))
+            
+        print(pid)
+        
+        realtime.wait()
         
     elif mode == 5:
+        duo_process = subprocess.Popen(['python3', '/home/pi/duo_google.py'])
+        pid = duo_process.pid;
+        
+        with open('/home/pi/process_pid.txt', 'w') as f:
+            f.write(str(pid))
+            
+        print(pid)
+        
+        duo_process.wait()
+        
         # Call duo assistant
         #duo_google.make_call()
-        os.system('python3 duo_google.py')
+        #os.system('python3 duo_google.py')
     elif mode == 6:
         # Call qr and barcode recognition
         os.system('mpg321 ready_signal.mp3 &')
-        qr_barcode.start_qr_barcode_recognition()
+        qr = subprocess.Popen(['python3', '/home/pi/qr_barcode.py'])
+        pid = qr.pid;
         
+        with open('/home/pi/process_pid.txt', 'w') as f:
+            f.write(str(pid))
+            
+        print(pid)
+        
+        qr.wait()
     elif mode == 7:
+        
+        take_picture()
+        time.sleep(3)
+        
         # Call receipt scanner
-        
-        print("Receipt scanner")
-        
+        scan_receipt()
     elif mode == 8:
         # Call money recognition 
         
         print("Money detection mode")
+    elif mode == 9:
+        
+        take_picture()
+        time.sleep(3)
+        
+        # Get predominant color 
+        get_colour()
+        
+        
+        
         
 if __name__ == '__main__':
     # Time synchronization to ntp servers
@@ -194,13 +237,13 @@ if __name__ == '__main__':
     # Indicate that the device is ready
     # Initialize the main case buttons
 
-    os.system('mpg321 startup_mode_info.mp3 &')
-
+    os.system('mpg321 startup_signal.mp3 &')
+    
 
     actionBtn = Button(4)
     nextBtn = Button(2)
     ###################################
-
+    
     # Start the smart voice assistant worker thread
     #Thread(target=voice_assistant).start()
 
