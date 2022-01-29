@@ -1,6 +1,6 @@
 ﻿# NewEyes - Умни очила за незрящи хора
 
-<img src="Snapshots/Examples/glasses.png" width="900" height="450">
+
 
 # Автор
 
@@ -9,7 +9,14 @@
 
 
 # Примери
-# Четене на текст от Български и Английски език <br />
+
+## Screenshots
+
+<img src="Snapshots/Examples/glasses.png" width="900" height="450">
+<img src="Design/Textures/case1.png" width="450" height="300">
+<img src="Design/Textures/case2.png" width="450" height="300">
+
+## Четене на текст от Български и Английски език <br />
 (Допълнение: Ориентацията на снимките не е от значение, софтуера 
 засича неправилната ориентация и изправя или обръща снимката)
 
@@ -34,21 +41,21 @@
 
 <br/><br/>
 
-# Справяне с неправилната ориентация на текста
+## Справяне с неправилната ориентация на текста
 <img src="Snapshots/Examples/harry_potter.jfif" width="600" height="750">
 <img src="Snapshots/Examples/harry_potter_flipped.jpg" width="600" height="750">
 <img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
 
 <br/><br/>
 
-# Сканиране на касови бележки
+## Сканиране на касови бележки
 <img src="Snapshots/Examples/receipt_1.png" width="750" height="750">
 <img src="Snapshots/Examples/receipt_2.png" width="750" height="750">
 <img src="Snapshots/Examples/receipt_3.png" width="750" height="750">
 
 <br/><br/><br/><br/><br/><br/>
 
-# Разпознаване на обекти и тяхната позиция в пространството
+## Разпознаване на обекти и тяхната позиция в пространството
 Съответно, след цялостната обработка, разпознаването на обектите и превода на български език,
 през говорителите на устройството гласовият асистент изговаря съответното съобщение 
 
@@ -56,7 +63,7 @@
 
 <img src="Snapshots/Examples/cup_result.png" width="750" height="750">
 
-# Интерактивна помощ от друг човек чрез камерата на очилата 
+## Интерактивна помощ от друг човек чрез камерата на очилата 
 
 <br/>
 
