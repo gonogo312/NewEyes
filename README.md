@@ -13,8 +13,18 @@
 ## Screenshots
 
 <img src="Snapshots/Examples/glasses.png" width="900" height="450">
-<img src="Snapshots/Examples/case1.png" width="450" height="300">
-<img src="Snapshots/Examples/case2.png" width="450" height="300">
+
+<p float="left">
+  <img src="Snapshots/Examples/case1.png" width="450" height="300" />
+  <img src="Snapshots/Examples/case2.png" width="450" height="300" /> 
+</p>
+
+## Готов продукт
+
+<p float="left">
+  <img src="Snapshots/Examples/product_1.png" width="450" height="300" />
+  <img src="Snapshots/Examples/product_2.png" width="450" height="300" /> 
+</p>
 
 ## Четене на текст от Български и Английски език <br />
 (Допълнение: Ориентацията на снимките не е от значение, софтуера 
