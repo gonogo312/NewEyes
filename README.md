@@ -1,5 +1,7 @@
 ﻿# NewEyes - Умни очила за незрящи хора
 
+<img src="Snapshots/Examples/sign_input.png" width="900" height="450">
+
 # Автор
 
 Иван Цветков - разработил проекта <br />
