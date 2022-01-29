@@ -15,15 +15,15 @@
 <img src="Snapshots/Examples/glasses.png" width="900" height="450">
 
 <p float="left">
-  <img src="Snapshots/Examples/case1.png" width="450" height="300" />
-  <img src="Snapshots/Examples/case2.png" width="450" height="300" /> 
+  <img src="Snapshots/Examples/case1.png" width="350" height="200" />
+  <img src="Snapshots/Examples/case2.png" width="350" height="200" /> 
 </p>
 
 ## Готов продукт
 
 <p float="left">
-  <img src="Snapshots/Examples/product_1.png" width="450" height="300" />
-  <img src="Snapshots/Examples/product_2.png" width="450" height="300" /> 
+  <img src="Snapshots/Examples/product_1.png" width="350" height="420" />
+  <img src="Snapshots/Examples/product_2.png" width="350" height="420" /> 
 </p>
 
 ## Четене на текст от Български и Английски език <br />
