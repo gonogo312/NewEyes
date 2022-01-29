@@ -13,8 +13,8 @@
 ## Screenshots
 
 <img src="Snapshots/Examples/glasses.png" width="900" height="450">
-<img src="Design/Textures/case1.png" width="450" height="300">
-<img src="Design/Textures/case2.png" width="450" height="300">
+<img src="Snapshots/Examples/case1.png" width="450" height="300">
+<img src="Snapshots/Examples/case2.png" width="450" height="300">
 
 ## Четене на текст от Български и Английски език <br />
 (Допълнение: Ориентацията на снимките не е от значение, софтуера 
