@@ -12,11 +12,11 @@
 
 ## Screenshots
 
-<img src="Snapshots/Examples/glasses.png" width="900" height="450">
+<img src="Snapshots/Examples/glasses.png" width="900" height="380">
 
 <p float="left">
-  <img src="Snapshots/Examples/case1.png" width="400" height="300" />
-  <img src="Snapshots/Examples/case2.png" width="400" height="300" /> 
+  <img src="Snapshots/Examples/case1.png" width="400" height="250" />
+  <img src="Snapshots/Examples/case2.png" width="400" height="250" /> 
 </p>
 
 ## Готов продукт
