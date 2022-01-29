@@ -15,8 +15,8 @@
 <img src="Snapshots/Examples/glasses.png" width="900" height="450">
 
 <p float="left">
-  <img src="Snapshots/Examples/case1.png" width="350" height="200" />
-  <img src="Snapshots/Examples/case2.png" width="350" height="200" /> 
+  <img src="Snapshots/Examples/case1.png" width="450" height="200" />
+  <img src="Snapshots/Examples/case2.png" width="450" height="200" /> 
 </p>
 
 ## Готов продукт
