@@ -83,4 +83,17 @@
 навигиран от друг човек (познат/приятел/роднина), като връзката
 се осъществява посредством платформата за видео чат Duo 
 
-...
+<img src="Snapshots/Examples/duo_example.jpeg" width="750" height="750">
+
+
+<br/><br/><br/><br/><br/><br/>
+
+## Разпознаване на главен цвят от снимка
+https://user-images.githubusercontent.com/97058791/152701536-6b37c342-0eb0-4af8-9801-c10c8d0b1d24.mp4
+
+
+<br/><br/><br/><br/><br/><br/>
+
+
+## Разпознаване на баркод и QR код
+<img src="Snapshots/Examples/qr_code_example.png" width="750" height="750">
