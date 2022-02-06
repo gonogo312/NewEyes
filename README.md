@@ -1,4 +1,4 @@
-﻿# NewEyes - Умни очила за незрящи хора
+# NewEyes - Умни очила за незрящи хора
 
 
 
@@ -83,7 +83,7 @@
 навигиран от друг човек (познат/приятел/роднина), като връзката
 се осъществява посредством платформата за видео чат Duo 
 
-<img src="Snapshots/Examples/duo_example.jpg" width="750" height="750">
+<img src="Snapshots/Examples/duo_example.jpg" width="450" height="600">
 
 
 <br/><br/><br/><br/><br/><br/>
