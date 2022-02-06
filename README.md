@@ -83,7 +83,7 @@
 навигиран от друг човек (познат/приятел/роднина), като връзката
 се осъществява посредством платформата за видео чат Duo 
 
-<img src="Snapshots/Examples/duo_example.jpg" width="450" height="600">
+<img src="Snapshots/Examples/duo_example.jpg" width="450" height="730">
 
 
 <br/><br/><br/><br/><br/><br/>
