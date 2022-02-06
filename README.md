@@ -26,15 +26,13 @@
   <img src="Snapshots/Examples/product_2.png" width="350" height="420" /> 
 </p>
 
-## Четене на текст от Български и Английски език <br />
+## Четене на текст от Български и Английски език <br/>
 (Допълнение: Ориентацията на снимките не е от значение, софтуера 
 засича неправилната ориентация и изправя или обръща снимката)
 
-<img src="Snapshots/Examples/sign_input.png" width="400" height="300">
-<img src="Snapshots/Examples/sign_result.png" width="400" height="300">
-
 <br/><br/>
 
+## Четене на печатен текст  
 <img src="Snapshots/Examples/dark_places.png" width="600" height="750">
 <img src="Snapshots/Examples/dark_places_result.png" width="600" height="250">
 
@@ -46,15 +44,18 @@
 
 <br/><br/>
 
-<img src="Snapshots/Examples/the_corner_shop.png" width="600" height="350">
-<img src="Snapshots/Examples/the_corner_shop_result.png" width="600" height="350">
-
-<br/><br/>
-
-## Справяне с неправилната ориентация на текста
+## Пример за справяне с неправилната ориентация на текста
 <img src="Snapshots/Examples/harry_potter.jfif" width="600" height="750">
 <img src="Snapshots/Examples/harry_potter_flipped.jpg" width="600" height="750">
 <img src="Snapshots/Examples/harry_potter_result.png" width="600" height="250">
+
+<br/><br/>
+
+## Четене на текст в необичайна среда
+<img src="Snapshots/Examples/the_corner_shop.png" width="600" height="350">
+<img src="Snapshots/Examples/the_corner_shop_result.png" width="600" height="350">
+<img src="Snapshots/Examples/sign_input.png" width="400" height="300">
+<img src="Snapshots/Examples/sign_result.png" width="400" height="300">
 
 <br/><br/>
 
@@ -67,7 +68,8 @@
 
 ## Разпознаване на обекти и тяхната позиция в пространството
 Съответно, след цялостната обработка, разпознаването на обектите и превода на български език,
-през говорителите на устройството гласовият асистент изговаря съответното съобщение 
+през говорителите на устройството или през свързаните към устройството слушалки, 
+съответното съобщение се изговаря през говорителите или през слушалките в ухото на незрящия човек.
 
 <br/>
 
@@ -78,6 +80,7 @@
 <br/>
 
 Опцията представлява видеочат, чрез който незрящият бива  
-навигиран от друг човек (познат/приятел/роднина)  
+навигиран от друг човек (познат/приятел/роднина), като връзката
+се осъществява посредством платформата за видео чат Duo 
 
 ...
