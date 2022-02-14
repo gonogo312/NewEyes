@@ -75,6 +75,11 @@
 
 <img src="Snapshots/Examples/cup_result.png" width="750" height="750">
 
+<br/>
+
+<img src="Snapshots/Examples/stopsign.png" width="750" height="750">
+
+
 ## Интерактивна помощ от друг човек чрез камерата на очилата 
 
 <br/>
