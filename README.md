@@ -82,7 +82,7 @@
 
 ## Интерактивна помощ от друг човек чрез камерата на очилата 
 
-<br/>
+<br/><br/><br/><br/><br/><br/>
 
 Опцията представлява видеочат, чрез който незрящият бива  
 навигиран от друг човек (познат/приятел/роднина), като връзката
@@ -102,3 +102,11 @@ https://user-images.githubusercontent.com/97058791/152701536-6b37c342-0eb0-4af8-
 
 ## Разпознаване на баркод и QR код
 <img src="Snapshots/Examples/qr_code_example.png" width="750" height="750">
+
+
+<br/><br/><br/><br/><br/><br/>
+
+
+## Отличия
+<img src="Contests/Awards/innovations_award.png">
+<img src="Contests/Awards/IvanTsvetkov-DarkMode.png">
