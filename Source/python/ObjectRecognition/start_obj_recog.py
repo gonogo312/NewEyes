@@ -4,7 +4,7 @@ from google.cloud import vision
 from subprocess import call
 from gpiozero import Button
 import sys
-from translate import Translator
+from translator import translate
 from google_speech import Speech
 from signal import pause
 #import pygame.camera
@@ -152,24 +152,15 @@ def call_object_recognition(path):
         #translated = translator.translate(description, src='en', dest='bg')
     
         # Translate contents
-        translator = Translator(to_lang="Bulgarian")
-        translation = translator.translate(description)
-        print(translation)
-        
-        translation = translation.replace('десен', 'дясно има ')
-        translation = translation.replace('ляв', 'ляво има ')
-        translation = translation.replace('долен', 'долу в ')
-        translation = translation.replace('долния', 'долу в ')
-        translation = translation.replace('горен', 'горе в ')
-        translation = translation.replace('горния', 'горе в ')
-        translation = translation.replace('средноцентров', 'в средата има ')
-        
+        translation = translate(description)
+   
         
         # create sound file in bulgarian
         language = "bg"
         speech = Speech(translation, language)
         speech.save("yolo_objects.mp3")
         os.system('mpg321 yolo_objects.mp3 &')
+        print(translation)
         
 
 #call_object_recognition('/home/pi/Desktop/output-1.jpg')

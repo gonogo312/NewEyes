@@ -4,7 +4,7 @@ from scipy.spatial import KDTree
 from webcolors import CSS3_HEX_TO_NAMES, hex_to_rgb, CSS21_HEX_TO_NAMES
 
 from google_speech import Speech
-from translate import Translator
+from translator import translate
 import os
 
 
@@ -26,14 +26,11 @@ def get_colour():
     dominant_color = color_thief.get_color(quality=1)
     
     colour = get_colour_name(dominant_color)
-    print(str(colour))
     
-    translator = Translator(to_lang="Bulgarian")
-    translation = translator.translate(str(colour))
+    translation = translate(str(colour))
     
     language = "bg"
     text = "главният цвят е " + translation 
     speech = Speech(text, language)
     speech.save("color.mp3")
     os.system('mpg321 color.mp3 &')
-    

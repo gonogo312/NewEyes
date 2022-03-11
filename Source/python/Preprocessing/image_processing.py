@@ -8,6 +8,7 @@ import image_processing
 from PIL import Image
 from imutils.perspective import four_point_transform
 import imutils
+from autocorrect import Speller
 from skimage.segmentation import clear_border
 import pytesseract
 import sys
@@ -26,11 +27,12 @@ def get_grayscale(image):
     images = np.array(Image.open(image))
 
     gray = cv2.cvtColor(images, cv2.COLOR_BGR2GRAY)
+    cv2.imwrite('/home/pi/grayscale.jpg', gray)
     return gray
 
 
 def remove_noise(image):
-    return cv2.medianBlur(image, 3)
+    return cv2.medianBlur(image, 1)
 
 
 def thresholding(image):
@@ -39,12 +41,12 @@ def thresholding(image):
 
 def dilate(image):
     kernel = np.ones((1, 1), np.uint8)
-    return cv2.dilate(image, kernel, iterations=7)
+    return cv2.dilate(image, kernel, iterations=3)
 
 
 def erode(image):
     kernel = np.ones((5, 5), np.uint8)
-    return cv2.erode(image, kernel, iterations=1)
+    return cv2.erode(image, kernel, iterations=3)
 
 
 def opening(image):
@@ -68,10 +70,13 @@ def process_image(image_url):
     
     # Higher image resolution leads to slower
     # Processing, but better results, consider carefully
-    image = cv2.resize(image, (1050, 1500))
+    #image = cv2.resize(image, (3350, 2280))
     
     # IMAGE PROCESSING
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Binarization
+    
+    #image = closing(image)
+    
     image = dilate(image)
     image = remove_noise(image)
 
@@ -94,7 +99,17 @@ def text_extraction(image, language):
     config = '-l ' + language + ' --oem 3 --psm 3'
     text = pytesseract.image_to_string(img, config=config, lang=language)
 
-    print("extraction finished...")
+    spell = Speller()
+    text = spell(text)
+    print("Extraction finished...")
+    return text
+
+
+def receipt_text_extraction(image, language):
+    img = cv2.imread(image)
+    text = pytesseract.image_to_string(img, lang=language)
+    
+    print("Extraction finished...")
     return text
 
 
@@ -113,6 +128,9 @@ def mistake_removal(input):
     text = text.replace("[", "")
     text = text.replace("]", "")
     text = text.replace("{", "")
+    text = text.replace("<", "")
+    text = text.replace(">", "")
+    text = text.replace("-", "")
     text = text.replace("}", "")
     text = text.replace("\n", " ")
     text = ''.join(c if c not in map(str, range(0, 10)) else "" for c in text)
@@ -133,3 +151,4 @@ def deskew(image):
 #cv2.imwrite('processed.jpg', gray)
 #deskew('/home/pi/processed.jpg')
 
+#process_image('/home/pi/Desktop/output-1.jpg')

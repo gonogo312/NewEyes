@@ -3,10 +3,12 @@ from mysql.connector import Error
 from google_speech import Speech
 from threading import Thread
 from gpiozero import Button
+from subprocess import call
 import RPi.GPIO as GPIO
 import mysql.connector
 import webbrowser
 import pyautogui
+import signal
 import time
 import sys
 import os
@@ -17,6 +19,7 @@ Stop = 0
 digit = 0
 letter = 0
 call_flag = 0
+call_counter = 0
 contacts_counter = -1
 names = []
 numbers = []
@@ -325,6 +328,7 @@ def call():
     global stop_btn
     global contacts_counter
     global names
+    global call_counter
     global numbers
     
     os.system("mpg321 /home/pi/duo_sound_files/call_or_choose_from_db.mp3 &")
@@ -348,44 +352,12 @@ def call():
         time.sleep(1)
         
         os.system("pkill mpg321")
-        os.system("pkill chromium")
         os.system("mpg321 /home/pi/duo_sound_files/calling_number.mp3 &")
 
-        time.sleep(1.7)
+        time.sleep(2.5)
         
         os.system('mpg321 please_wait.mp3 &')
-        #if call_counter == 0:
         
-        # Open up an incognito tab
-        webbrowser.open('www.google.com')
-        pyautogui.keyDown("ctrl")
-        pyautogui.keyDown("shift")
-        pyautogui.press("n")
-
-        pyautogui.keyUp("ctrl")
-        pyautogui.keyUp("shift")
-        
-        time.sleep(3)
-        pyautogui.typewrite('https://duo.google.com/?web&utm_source=marketing_page_button_main')
-        pyautogui.press("enter")
-        #webbrowser.open('https://duo.google.com/?web&utm_source=marketing_page_button_main')
-        time.sleep(30)  
-        # keyboard = Controller()
-        
-        # Enter account info
-        #pyautogui.press("tab")
-        pyautogui.typewrite('rpidummy0@gmail.com')
-        pyautogui.press("enter")
-        time.sleep(6)
-        
-        #pyautogui.typewrite("0899348344")
-        #pyautogui.press("enter")
-        
-        #time.sleep(6)
-        
-        pyautogui.typewrite('RaspberryDummy0')
-        pyautogui.press("enter")
-        time.sleep(35)
         
         # Make duo call
         for i in range(8):
@@ -405,7 +377,11 @@ def call():
         pyautogui.press("tab")
         pyautogui.press("enter")
         pyautogui.press("enter")
-        
+    
+
+            
+            
+            
     elif call_flag == 2:
 
         connection = mysql.connector.connect(host='localhost',
@@ -471,6 +447,7 @@ def contacts_counter_increase():
 def select_contact():
     global names
     global numbers
+    global call_counter
     global contacts_counter
     
     lang = "bg"
@@ -480,56 +457,44 @@ def select_contact():
     os.system('mpg321 /home/pi/duo_sound_files/curr_name.mp3 &')
     
     time.sleep(2.5)
-
+        
+    os.system('mpg321 please_wait.mp3 &')
     #if call_counter == 0:
-    webbrowser.open('www.google.com')
-    pyautogui.keyDown("ctrl")
-    pyautogui.keyDown("shift")
-    pyautogui.press("n")
 
-    pyautogui.keyUp("ctrl")
-    pyautogui.keyUp("shift")
-    
-    time.sleep(3)
-    pyautogui.typewrite('https://duo.google.com/?web&utm_source=marketing_page_button_main')
-    pyautogui.press("enter")
-    #webbrowser.open('https://duo.google.com/?web&utm_source=marketing_page_button_main')
-    time.sleep(30)
-    
-    
-    pyautogui.typewrite('rpidummy0@gmail.com')
-    pyautogui.press("enter")
-    time.sleep(6)
-    
-    #pyautogui.typewrite("0899348344")
-    #pyautogui.press("enter")
-    
-    #time.sleep(6)
-    
-    pyautogui.typewrite('RaspberryDummy0')
-    pyautogui.press("enter")
-    time.sleep(35)
-    
-    # Make duo call
-    for i in range(8):
+    if call_counter == 0:
+        call_counter = call_counter + 1
+        
+        # Make duo call
+        for i in range(8):
+            pyautogui.press("tab")
+        
+        pyautogui.press("enter")
+        time.sleep(5)  
+        pyautogui.typewrite(numbers[contacts_counter])
+        
+        time.sleep(5)  
         pyautogui.press("tab")
-    
-    pyautogui.press("enter")
-    time.sleep(5)  
-    pyautogui.typewrite(numbers[contacts_counter])
-    
-    time.sleep(5)  
-    pyautogui.press("tab")
-    pyautogui.press("enter")
-    
-    time.sleep(5)
-    # Allow usage of camera and mic
-    pyautogui.press("tab")
-    pyautogui.press("tab")
-    pyautogui.press("enter")
-    pyautogui.press("enter")
-    
-    
+        pyautogui.press("enter")
+        
+        time.sleep(5)
+        # Allow usage of camera and mic
+        pyautogui.press("tab")
+        pyautogui.press("tab")
+        pyautogui.press("enter")
+        pyautogui.press("enter")
+    else:
+        # Make duo call
+        pyautogui.press("tab")
+        
+        pyautogui.press("enter")
+        time.sleep(5)  
+        pyautogui.typewrite(numbers[contacts_counter])
+        
+        time.sleep(5)  
+        pyautogui.press("tab")
+        pyautogui.press("enter")
+        
+        
 def save_or_call_menu():
     global digit
     digit += 1
@@ -576,6 +541,8 @@ def make_call():
                 break
             elif Flag == 4:
                 break
+            elif Flag == 10:
+                break
         
         if Flag == 1:
             save()
@@ -588,8 +555,12 @@ def make_call():
             time.sleep(2)
             break
         
+        elif Flag == 10:
+            os.system('mpg321 /home/pi/duo_sound_files/duo_quit.mp3 &')
+            time.sleep(2)
+            break
         
-        break;
+        
         # call_counter = 1
         # elif call_counter == 1:
         #    webbrowser.open('https://duo.google.com/?web&utm_source=marketing_page_button_main') 
@@ -605,8 +576,15 @@ def make_call():
         #    time.sleep(5)  
         #    pyautogui.press("tab")
         #    pyautogui.press("enter")
-            
+        
+    # Kill process forcefully
+    with open('process_pid.txt') as f:
+        pid = f.readline()
+    duo_pid = int(pid)
+    os.kill(duo_pid, signal.SIGKILL)
+    
             
 if __name__ == '__main__':
     print("friend assistance functionality")
     make_call()
+    

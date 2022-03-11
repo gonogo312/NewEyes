@@ -28,36 +28,53 @@ def text_recognition():
     
     osd = ''
     try:
-        osd = pytesseract.image_to_osd('/home/pi/deskewed_image.jpg', config='--psm 0 -c min_characters_to_try=10')
+        osd = pytesseract.image_to_osd('/home/pi/deskewed_image.jpg', config='--psm 0 -c min_characters_to_try=30')
         print(osd)
     except:
         pass
         
-    if "Script: Cyrillic" in osd:
+        
+    index = osd.find("Script confidence:")
+    script_confidence = float(index)
+    script_confidence = int(script_confidence)
+    
+    script_confidence = float(osd[script_confidence+19:script_confidence+23])
+
+        
+    if "Script: Cyrillic" in osd and script_confidence > 0.50:
         language = 'bul'
-    elif "Script: Latin" in osd:
+    elif "Script: Latin" in osd and script_confidence > 0.50:
         language = 'eng'
     else:
         language = 'eng'
     # Dewarp code goes here...
     
     text = ''
+    
+    index = osd.find("Orientation confidence:")
+    orientation_confidence = float(index)
+    orientation_confidence = int(orientation_confidence)
+    #print(orientation_confidence)
+    #print(osd[orientation_confidence+24:orientation_confidence+28])
+    orientation_confidence = float(osd[orientation_confidence+24:orientation_confidence+28])
+    
     # Flip the image case
-    if "Orientation in degrees: 180" in osd:
+    if "Orientation in degrees: 180" in osd and orientation_confidence > 0.50:
+        
         im = Image.open('/home/pi/deskewed_image.jpg')
-        angle = 180
+        angle = 90
         out = im.rotate(angle)
         out.save("/home/pi/flipped_image.jpg")
         text = text_extraction('/home/pi/flipped_image.jpg', language)
     
-    elif "Orientation in degrees: 90" in osd:
+    elif "Orientation in degrees: 90" in osd and orientation_confidence > 0.50:
         im = Image.open('/home/pi/deskewed_image.jpg')
         angle = 90
         out = im.rotate(angle)
         out.save("/home/pi/flipped_image.jpg")
         text = text_extraction('/home/pi/flipped_image.jpg', language)
 
-    elif "Orientation in degrees: 270" in osd:
+    elif "Orientation in degrees: 270" in osd and orientation_confidence > 0.50:
         im = Image.open('/home/pi/deskewed_image.jpg')
         angle = 90
         out = im.rotate(angle)

@@ -3,18 +3,25 @@ import time
 import cv2
 import os
 from gpiozero import Button
-from translate import Translator
+from translator import translate
 import speech_recognition as sr
 from threading import Thread
 from google_speech import Speech
 import imutils
 import subprocess
 import pyttsx3
-from gtts import gTTS 
+import signal
 
+Flag = 0
+stop_btn = Button(4)
+
+def realtime_stop():
+    global Flag
+    Flag = 1
+    print(Flag)
 
 def realtime_yolo_object_recognition():
-    Thread(target=yolo_obj_voice_recog_stop).start()
+    global stop_btn
     print("thread started")
 
     # load the COCO class labels our YOLO model was trained on
@@ -23,7 +30,8 @@ def realtime_yolo_object_recognition():
     # load our YOLO object detector trained on COCO dataset (80 classes)
     print("[INFO] loading YOLO from disk...")
     net = cv2.dnn.readNetFromDarknet("/home/pi/yolo/darknet/cfg/yolov4-tiny.cfg", "/home/pi/yolo/darknet/weights/yolov4-tiny.weights")
-
+    
+   
 
     #yolo-coco/yolov3.cfg
     # determine only the *output* layer names that we need from YOLO
@@ -39,18 +47,17 @@ def realtime_yolo_object_recognition():
 
     while True:
         
-        with open('realtime_yolo_obj_recog_stop.txt', 'r') as r:
-            lines = r.readlines()
+        stop_btn.when_pressed=realtime_stop
         
-        if "stop" in lines:
-            
-            file = open('realtime_yolo_obj_recog_stop.txt', 'r+')
-            file.truncate(0)
-            file.close()
-            
-            os.system('mpg321 yolo_stop_sound.mp3 &')
-            
+        if Flag == 1:
+            os.system('mpg321 /home/pi/realtime_quit.mp3 &')
+            time.sleep(2)
             break
+        elif Flag == 2:
+            os.system('mpg321 /home/pi/realtime_quit.mp3 &')
+            time.sleep(2)
+            break
+        
         
         frame_count += 1
         # Capture frame-by-frameq
@@ -125,11 +132,11 @@ def realtime_yolo_object_recognition():
                         centerX, centerY = centers[i][0], centers[i][1]
                         
                         if centerX <= W/3:
-                            W_pos = "left "
+                            W_pos = "right "
                         elif centerX <= (W/3 * 2):
                             W_pos = "center "
                         else:
-                            W_pos = "right "
+                            W_pos = "left "
                         
                         if centerY <= H/3:
                             H_pos = "top "
@@ -152,61 +159,48 @@ def realtime_yolo_object_recognition():
                     # create sound file in bulgarian
                     #tts = gTTS(translated, lang='bg')
                     
-                    translator = Translator(to_lang="Bulgarian")
-                    translation = translator.translate(description)
-                    print(translation)
                     
-                    translation = translation.replace('десен', 'дясно има ')
-                    translation = translation.replace('ляв', 'ляво има ')
-                    translation = translation.replace('долен', 'долу в ')
-                    translation = translation.replace('долния', 'долу в ')
-                    translation = translation.replace('горен', 'горе в ')
-                    translation = translation.replace('горния', 'горе в ')
-                    translation = translation.replace('средноцентров', 'в средата има ')
-                    
-                    
+                    translation = translate(description)
+                   
                     # create sound file in bulgarian
                     language = "bg"
                     speech = Speech(translation, language)
                     speech.save("yolo_objects.mp3")
                     os.system('mpg321 yolo_objects.mp3 &')
+                    #os.wait()
 
+    with open('process_pid.txt') as f:
+        pid = f.readline()
+    reatime_pid = int(pid)
+    os.kill(reatime_pid, signal.SIGKILL)
+    
     cap.release()
     cv2.destroyAllWindows()
-
-
-def stop_yolo_voice_recog():
-    with open('realtime_yolo_obj_recog_stop.txt', 'w') as f:
-        f.write('stop')
             
 
-def yolo_obj_voice_recog_stop():
-    r = sr.Recognizer()
-    mic = sr.Microphone()
-    stopBtn = Button(2)
-    
-    
-    while True:
-        
-        stopBtn.when_pressed = stop_yolo_voice_recog
-        
-        try:
-            
-            with mic as source:
-                audio = r.listen(source)
-                
-            text = r.recognize_google(audio)
-            text = text.lower()
-            
-            print(f"Text: {text}")
-
-            if "stop" in text:
-                with open('realtime_yolo_obj_recog_stop.txt', 'w') as f:
-                    f.write('stop')
-                break
-
-        except:
-            pass
+#def yolo_obj_voice_recog_stop():
+#    r = sr.Recognizer()
+#    mic = sr.Microphone()
+#    global Flag
+#    
+#    while True:
+#        
+#        try:
+#            
+#            with mic as source:
+#                audio = r.listen(source)
+#                
+#            text = r.recognize_google(audio)
+#            text = text.lower()
+#            
+#            print(f"Text: {text}")
+#
+#            if "stop" in text:
+#                Flag = 2
+#                break
+#
+#        except:
+#            pass
 
 
 if __name__ == '__main__':
