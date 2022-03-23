@@ -156,4 +156,4 @@ def street_ocr():
     
 
 #if __name__ == '__main__':
-#    street_ocr()
+#   street_ocr()

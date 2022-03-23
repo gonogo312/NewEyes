@@ -10,6 +10,8 @@ import signal
 #import multiprocessing
 #from gtts import gTTS
 #import pygame.camera
+import webbrowser
+import pyautogui
 #from speech_recog import *
 import start_obj_recog
 #import process_checker
@@ -20,7 +22,8 @@ import subprocess
 from receipt_scanner import *
 from predominant_clr import *
 from book_ocr import *
-from crnn_ocr import *
+#from crnn_ocr import *
+from text_recognition import *
 import argparse
 #import _thread
 import random
@@ -49,9 +52,16 @@ def call_obj_recog(path):
     # subprocess.call(["python3", "/home/pi/start_obj_recog.py"])
 def realtime_detect_objects():
     realtime_yolo_obj_recog.realtime_yolo_object_recognition()
-#def voice_assistant():
-#    speech_recog.speech_recog()
-    # subprocess.call(["python3", "/home/pi/speech_recog.py"])
+def voice_assistant():
+    speech_process = subprocess.Popen(['python3', '/home/pi/speech_recog.py'])
+    pid = speech_process.pid;
+    
+    with open('/home/pi/speech_process_pid.txt', 'w') as f:
+        f.write(str(pid))
+        
+    print(pid)
+    
+    speech_process.wait()
     ###################################
 
 
@@ -74,7 +84,7 @@ def take_picture():
 
             os.system("mpg321 first_beep.mp3 &")
             start_process()
-            time.sleep(4.5)
+            time.sleep(5.0)
             os.system('mpg321 second_beep.mp3 &')
 
         except Exception:
@@ -91,7 +101,6 @@ def increase_mode_value():
     
     mode += 1
     os.system("pkill mpg321")
-    os.system("pkill chromium")
     
     if mode == 1:
         os.system('mpg321 /home/pi/book_ocr_read.mp3 &')
@@ -138,9 +147,14 @@ def increase_mode_value():
 
 
 def execute_action():
+    #with open('speech_process_pid.txt') as f:
+    #    pid = f.readline()
+    #speech_pid = int(pid)RaspberryDummy0
+    
+    #os.kill(speech_pid, signal.SIGKILL)
+    
     global mode
     os.system("pkill mpg321")
-    os.system("pkill chromium")
     
     if mode == 1:
         take_picture()
@@ -148,7 +162,7 @@ def execute_action():
         
         # Call book ocr
         text_recognition()
-        
+
         
         # call_google_api_ocr()
     
@@ -197,7 +211,7 @@ def execute_action():
         # Call qr and barcode recognition
         os.system('mpg321 ready_signal.mp3 &')
         qr = subprocess.Popen(['python3', '/home/pi/qr_barcode.py'])
-        pid = qr.pid;
+        pid = qr.pid
         
         with open('/home/pi/process_pid.txt', 'w') as f:
             f.write(str(pid))
@@ -224,37 +238,62 @@ def execute_action():
         # Get predominant color 
         get_colour()
         
+    #Thread(target=voice_assistant).start()
+    
         
-        
+def duo_init():
+    
+    webbrowser.open('www.google.com')
+    time.sleep(5)
+    pyautogui.keyDown("ctrl")
+    pyautogui.keyDown("shift")
+    pyautogui.press("n")
+
+    pyautogui.keyUp("ctrl")
+    pyautogui.keyUp("shift")
+    
+    time.sleep(5)
+    pyautogui.typewrite('https://duo.google.com/?web&utm_source=marketing_page_button_main')
+    pyautogui.press("enter")
+    time.sleep(20)  
+
+    pyautogui.typewrite('rpidummy0@gmail.com')
+    pyautogui.press("enter")
+    time.sleep(6)
+    
+    pyautogui.typewrite('RaspberryDummy0')
+    pyautogui.press("enter")
+
         
 if __name__ == '__main__':
     # Time synchronization to ntp servers
     # Necessary for using the google vision api(s)
 
     #synchronize_time()
-
+    #voice_assistant()
 
     # Indicate that the device is ready
     # Initialize the main case buttons
 
     os.system('mpg321 startup_signal.mp3 &')
     
-
+    
     actionBtn = Button(4)
     nextBtn = Button(2)
     ###################################
+
     
     # Start the smart voice assistant worker thread
+    
+    
+    Thread(target=duo_init).start()
     #Thread(target=voice_assistant).start()
-
+    
     ###################################
     while True:
 
-    # Execute the given mode's functionality and/or
     # switch the mode to a different action
         actionBtn.when_pressed = execute_action
         nextBtn.when_pressed = increase_mode_value
 
     ###################################
-
-

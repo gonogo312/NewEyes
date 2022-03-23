@@ -8,7 +8,10 @@ from pygame import *
 import wikipedia
 import start_ocr
 import start_obj_recog
+from book_ocr import *
 import _thread
+import subprocess
+from text_recognition import *
 #import yolo_object_recog 
 import pygame
 import main
@@ -17,10 +20,42 @@ import re
 import os
 
 
+def take_picture():
+    def init_capture():
+        subprocess.call(['sh', '/home/pi/guvc_force_capture.sh'])
+
+    def stop_capture():
+        time.sleep(4.5)
+        subprocess.call(['sh', '/home/pi/stop_capture.sh'])
+
+    def start_process():
+        Thread(target=init_capture).start()
+        Thread(target=stop_capture).start()
+
+    def start_pressed():
+        try:
+            if os.path.exists("/home/pi/Desktop/output-1.jpg"):
+                os.remove("/home/pi/Desktop/output-1.jpg")
+
+            os.system("mpg321 first_beep.mp3 &")
+            start_process()
+            time.sleep(5.0)
+            os.system('mpg321 second_beep.mp3 &')
+
+        except Exception:
+            pass
+        finally:
+            print("Picture taken successfully!")
+
+    start_pressed()
+
+
 def read():
-    main.take_picture()
+    take_picture()
     time.sleep(3)
-    start_ocr.call_google_api_ocr()
+    #start_ocr.call_google_api_ocr()
+    print("chetene brat")
+    text_recognition()
 
 
 def detect_objects():
@@ -65,12 +100,12 @@ def speech_recog():
             with sr.Microphone() as source:
                 audio = r.listen(source,timeout=3)
                 
-            text = r.recognize_google(audio)
+            text = r.recognize_google(audio, language="bg-BG")
             text = text.lower()
             
             print("Text: " + text)
             
-            if "hey glasses" in text or "glasses" in text or "ses" in text or "sses" in text or "ess" in text:
+            if "hey glasses" in text or "glasses" in text or "ses" in text or "sses" in text or "ess" in text or "хей очила" in text or "здравей" in text or "хей" in text or "очила" in text:
 
                 flag = 1
                 
@@ -84,11 +119,11 @@ def speech_recog():
                 continue
 
             elif flag == 1:
-                if "reed" in text or "read" in text or "breathe" in text or "tell me what is written" in text:
+                if "reed" in text or "read" in text or "breathe" in text or "tell me what is written" in text or "чети" in text or "прочети" in text or "изчети" in text or "четете" in text:
                     print("Reading Mode!")
                     read()
 
-                elif "detect" in text or "objects" in text or "detect objects" in text or "tell me what is in front of me" in text or "tell me what's in front of me" in text:
+                elif "detect" in text or "objects" in text or "detect objects" in text or "tell me what is in front of me" in text or "tell me what's in front of me" in text or "обекти" in text:
                     print("Object Recognition Mode!")
                     realtime_detect_objects()
 
@@ -187,5 +222,4 @@ def speech_recog():
 
 if __name__ == "__main__":
     print("speech recognition...")
-    #speech_recog()
-    
+    speech_recog()
